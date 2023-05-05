@@ -1,0 +1,12 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "request": "launch",
+      "type": "node-terminal",
+      "name": "Run Script: jest:watch",
+      "command": "npm run jest:watch",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}
