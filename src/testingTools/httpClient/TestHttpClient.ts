@@ -27,18 +27,35 @@ export class TestHttpClient {
             const pendingRequest: PendingRequest<T> = {
                 request,
                 resolve: (...args) => {
-                    this.pendingRequests = this.pendingRequests.filter(pr => pr !== pendingRequest);
+                    this.removePendingRequest(pendingRequest);
                     resolve(...args);
                 },
                 reject: (...args) => {
-                    this.pendingRequests = this.pendingRequests.filter(pr => pr !== pendingRequest);
+                    this.removePendingRequest(pendingRequest);
                     reject(...args);
                 },
             };
             this.pendingRequests.push(pendingRequest);
         });
     }
-    expectOne<R>(url: string, init?: RequestInit): PendingRequest<R> {
+    expectOne<T>(url: string, init?: RequestInit): PendingRequest<T> {
+        const foundPendingRequest = this.findPendingRequest<T>(url, init);
+        return foundPendingRequest;
+    }
+    removeOne(url: string, init?: RequestInit): void {
+        const foundPendingRequest = this.findPendingRequest<unknown>(url, init);
+        this.removePendingRequest(foundPendingRequest);
+    }
+    verify(): void {
+        if (this.pendingRequests.length) {
+            throw new Error(`HttpClient: still has pending requests`);
+        }
+    }
+    clean(): void {
+        this.pendingRequests = [];
+    }
+
+    private findPendingRequest<T>(url: string, init?: RequestInit): PendingRequest<T> {
         const foundPendingRequest = this.pendingRequests.find(pendingRequest => {
             const isUrlEqual = pendingRequest.request.url === url;
             const isInitEqual = init
@@ -49,15 +66,11 @@ export class TestHttpClient {
         if (!foundPendingRequest) {
             throw new Error(`HttpClient: no pending request found for the ${url}`);
         }
-        return foundPendingRequest as PendingRequest<R>;
+        return foundPendingRequest as PendingRequest<T>;
     }
-    verify(): void {
-        if (this.pendingRequests.length) {
-            throw new Error(`HttpClient: still has pending requests`);
-        }
-    }
-    clean(): void {
-        this.pendingRequests = [];
+
+    private removePendingRequest<T>(pendingRequest: PendingRequest<T>): void {
+        this.pendingRequests = this.pendingRequests.filter(pr => pr !== pendingRequest);
     }
 }
 
