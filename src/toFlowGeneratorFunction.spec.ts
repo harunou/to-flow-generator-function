@@ -1,8 +1,8 @@
 import { flow as _flow, FlowCancellationError } from 'mobx';
 import { toFlowGeneratorFunctionWithCasting as toFlowGeneratorFunction } from './toFlowGeneratorFunction';
 import { expectType, sleep, TestHttpClient } from './testingTools';
-import { Annotation, CancellablePromise } from 'mobx/dist/internal';
-import { FlowGenerator } from './toFlowGeneratorFunction.types';
+import type { Annotation, CancellablePromise } from 'mobx/dist/internal';
+import type { FlowGenerator } from './toFlowGeneratorFunction.types';
 
 type Brand<K, T> = K & { __brand: T };
 

@@ -1,4 +1,4 @@
-import { FlowGenerator } from './toFlowGeneratorFunction.types';
+import type { FlowGenerator } from './toFlowGeneratorFunction.types';
 
 export function toFlowGeneratorFunctionWithCasting<TArgs extends unknown[], TReturn = void>(
     fn: (...args: TArgs) => Promise<TReturn> | TReturn

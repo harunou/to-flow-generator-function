@@ -1,4 +1,4 @@
-import { Equal, NotAny } from './testingTools.types';
+import type { Equal, NotAny } from './testingTools.types';
 
 export const sleep = (ms = 0): Promise<void> =>
     new Promise(resolve =>

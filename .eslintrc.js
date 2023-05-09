@@ -38,6 +38,7 @@ const config = {
         '@typescript-eslint/prefer-readonly': 'error',
         '@typescript-eslint/array-type': ['error', { default: 'array-simple' }],
         '@typescript-eslint/explicit-function-return-type': 'error',
+        '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/explicit-member-accessibility': [
             'error',
             {
