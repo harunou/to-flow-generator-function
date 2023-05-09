@@ -8,11 +8,11 @@ export const sleep = (ms = 0): Promise<void> =>
     );
 
 export const expectType = <T>(): {
-    notAny(value: NotAny<T>): void;
+    notToBeAny(value: NotAny<T>): void;
     toEqual<R>(value: Equal<T, R>): void;
 } => {
     return {
-        notAny: (value: NotAny<T>): void => {
+        notToBeAny: (value: NotAny<T>): void => {
             void value;
         },
         toEqual: <R>(value: Equal<T, R>): void => {
