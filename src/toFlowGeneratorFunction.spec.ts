@@ -194,7 +194,9 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         await sleep();
         httpClient.expectOne<Number2>(endpoint2).resolve(number2);
         httpClient.verify();
-        await expect(promise).resolves.toEqual<FlowResult1>(expected0);
+
+        expectType<Awaited<ReturnType<typeof flowFunction>>>().toEqual<FlowResult1>(true);
+        await expect(promise).resolves.toEqual(expected0);
     });
 
     it('allows to cancel in the middle', async () => {
