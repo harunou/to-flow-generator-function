@@ -15,7 +15,7 @@
     "type-check-ts:all": "tsc --project ./tsconfig.json",
     "git:hooks:install": "husky install",
     "git:hooks:commit": "run-s -ln prettier:format:staged",
-    "git:hooks:push": "echo 'push'",
+    "git:hooks:push": "run-s -ln test",
     "prettier:format:staged": "bash ./scripts/prettier/prettify-staged.sh",
     "packages:upgrade": "ncu --interactive --upgrade",
     "pathname:bash": "echo 'Bash pathname is'; command -v bash",
