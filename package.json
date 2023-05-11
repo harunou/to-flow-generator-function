@@ -2,6 +2,20 @@
   "name": "to-flow-generator-function",
   "version": "0.1.1",
   "license": "MIT",
+  "description": "An utility function that makes MobX flow type-safe",
+  "keywords": [
+    "typescript",
+    "mobx",
+    "flow",
+    "generators",
+    "promise"
+  ],
+  "homepage": "https://github.com/harunou/to-flow-generator-function",
+  "bugs": {
+    "url": "https://github.com/harunou/to-flow-generator-function/issues"
+  },
+  "author": "Dzmitry Harunou <d.harunou@gmail.com>",
+  "repository": "git@github.com:harunou/to-flow-generator-function.git",
   "scripts": {
     "test": "run-s -ln lint:all jest:all",
     "jest:base": "jest --watchAll=false",
