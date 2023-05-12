@@ -18,6 +18,7 @@
   "repository": "git@github.com:harunou/to-flow-generator-function.git",
   "scripts": {
     "test": "run-s -ln lint:all jest:all",
+    "build": "rm -rf ./build && tsc --build ./src ",
     "jest:base": "jest --watchAll=false",
     "jest:watch": "npm run jest:base -- --watchAll=true",
     "jest:all": "npm run jest:base -- --watchAll=false --silent=true --coverage",
