@@ -39,4 +39,5 @@ const userData = await flow(fetchUserData)(userId);
 ```
 
 ## Similar solutions
-https://mobx-state-tree.js.org/API/#togeneratorfunction
+
+<https://mobx-state-tree.js.org/API/#togeneratorfunction>
