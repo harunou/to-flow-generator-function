@@ -1,6 +1,6 @@
 export type FlowGenerator<TReturn = void> = Generator<Promise<void>, TReturn, void>;
 
-export function toFlowGeneratorFunctionWithCasting<TArgs extends unknown[], TReturn = void>(
+export function toFlowGeneratorFunction<TArgs extends unknown[], TReturn = void>(
     fn: (...args: TArgs) => Promise<TReturn> | TReturn
 ): (...args: TArgs) => FlowGenerator<TReturn> {
     return function* flowGeneratorFunction(...args: TArgs): FlowGenerator<TReturn> {
