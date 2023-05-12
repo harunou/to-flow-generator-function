@@ -10,12 +10,16 @@
     "generators",
     "promise"
   ],
+  "main": "build/index.js",
+  "files": [
+    "build"
+  ],
   "homepage": "https://github.com/harunou/to-flow-generator-function",
   "bugs": {
     "url": "https://github.com/harunou/to-flow-generator-function/issues"
   },
-  "author": "Dzmitry Harunou <d.harunou@gmail.com>",
   "repository": "git@github.com:harunou/to-flow-generator-function.git",
+  "author": "Dzmitry Harunou <d.harunou@gmail.com>",
   "scripts": {
     "test": "run-s -ln lint:all jest:all",
     "build": "rm -rf ./build && tsc --build ./src ",
