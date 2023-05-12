@@ -2,7 +2,7 @@
 
 [![codecov](https://codecov.io/github/harunou/to-flow-generator-function/branch/main/graph/badge.svg?token=1WTYGPJ8N5)](https://codecov.io/github/harunou/to-flow-generator-function)
 
-Converts a promise-returning function to a generator-returning one. This is intended to allow for usage of type-safe yield inside MobX flow wrapper.
+Converts a promise-returning function to a generator-returning one. This is intended to allow for the usage of type-safe yield inside a MobX flow wrapper.
 
 ## Parameters
 
@@ -25,7 +25,7 @@ function* fetchUserData(id: number): FlowGenerator<UserData> {
     const name = yield* toFlowGeneratorFunction(fetchUserName)(id);
     // name is type of string
     const age = yield* toFlowGeneratorFunction(fetchUserAge)(id);
-    // name is type of number
+    // age is type of number
     return {
         id,
         name,
