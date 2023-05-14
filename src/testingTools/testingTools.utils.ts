@@ -1,4 +1,4 @@
-import type { Equal, NotAny } from './testingTools.types';
+import type { Equal } from './testingTools.types';
 
 export const sleep = (ms = 0): Promise<void> =>
     new Promise(resolve =>
@@ -8,13 +8,9 @@ export const sleep = (ms = 0): Promise<void> =>
     );
 
 export const expectType = <T>(): {
-    notToBeAny(value: NotAny<T>): void;
     toEqual<R>(value: Equal<T, R>): void;
 } => {
     return {
-        notToBeAny: (value: NotAny<T>): void => {
-            void value;
-        },
         toEqual: <R>(value: Equal<T, R>): void => {
             void value;
         },

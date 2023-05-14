@@ -1,9 +1,7 @@
 import { flow as _flow, FlowCancellationError } from 'mobx';
 import { type FlowGenerator, toFlowGeneratorFunction } from './toFlowGeneratorFunction';
-import { expectType, sleep, TestHttpClient } from './testingTools';
+import { type Brand, expectType, sleep, TestHttpClient } from './testingTools';
 import type { Annotation, CancellablePromise } from 'mobx/dist/internal';
-
-type Brand<K, T> = K & { __brand: T };
 
 // NOTE(harunou): flow type without any
 interface Flow extends Annotation, PropertyDecorator {
@@ -126,41 +124,39 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
     });
 
     it('allows to compose multiple requests', async () => {
-        type Number0 = Brand<number, 'TYPE_0'>;
-        type Number1 = Brand<number, 'TYPE_1'>;
-        type Number2 = Brand<number, 'TYPE_2'>;
+        type Value0 = Brand<number, 'TYPE_0'>;
+        type Value1 = Brand<number, 'TYPE_1'>;
+        type Value2 = Brand<number, 'TYPE_2'>;
 
-        type FlowResult0 = { returnResult0: Number0; returnResult1: Number1 };
+        type FlowResult0 = { returnResult0: Value0; returnResult1: Value1 };
         type FlowResult1 = {
-            returnResult0: Number0;
-            returnResult1: Number1;
-            returnResult2: Number2;
+            returnResult0: Value0;
+            returnResult1: Value1;
+            returnResult2: Value2;
         };
 
         const endpoint0 = `${endpoint}/0`;
         const endpoint1 = `${endpoint}/1`;
         const endpoint2 = `${endpoint}/2`;
 
-        const number0 = 7 as Number0;
-        const number1 = 9 as Number1;
-        const number2 = 5 as Number2;
+        const value0 = 7 as Value0;
+        const value1 = 9 as Value1;
+        const value2 = 5 as Value2;
 
         const expected0: FlowResult1 = {
-            returnResult0: number0,
-            returnResult1: number1,
-            returnResult2: number2,
+            returnResult0: value0,
+            returnResult1: value1,
+            returnResult2: value2,
         };
 
         const flowGenerator0 = toFlowGeneratorFunction((param: string) =>
-            httpClient.request<Number0>(new Request(endpoint0, { method: 'POST', body: param }))
+            httpClient.request<Value0>(new Request(endpoint0, { method: 'POST', body: param }))
         );
         const flowGenerator1 = toFlowGeneratorFunction(() =>
-            httpClient.request<Number1>(new Request(endpoint1))
+            httpClient.request<Value1>(new Request(endpoint1))
         );
         const flowGenerator2 = toFlowGeneratorFunction((param: number) =>
-            httpClient.request<Number2>(
-                new Request(endpoint2, { method: 'POST', body: `${param}` })
-            )
+            httpClient.request<Value2>(new Request(endpoint2, { method: 'POST', body: `${param}` }))
         );
         function* flowGenerator3(param: string): FlowGenerator<FlowResult0> {
             void param;
@@ -183,13 +179,13 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         }
         const flowFunction = flow(flowGenerator4);
         const promise = flowFunction(8);
-        httpClient.expectOne<Number0>(endpoint0).resolve(number0);
+        httpClient.expectOne<Value0>(endpoint0).resolve(value0);
         httpClient.verify();
         await sleep();
-        httpClient.expectOne<Number1>(endpoint1).resolve(number1);
+        httpClient.expectOne<Value1>(endpoint1).resolve(value1);
         httpClient.verify();
         await sleep();
-        httpClient.expectOne<Number2>(endpoint2).resolve(number2);
+        httpClient.expectOne<Value2>(endpoint2).resolve(value2);
         httpClient.verify();
 
         expectType<Awaited<ReturnType<typeof flowFunction>>>().toEqual<FlowResult1>(true);
@@ -197,34 +193,32 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
     });
 
     it('allows to cancel in the middle', async () => {
-        type Number0 = Brand<number, 'TYPE_0'>;
-        type Number1 = Brand<number, 'TYPE_1'>;
-        type Number2 = Brand<number, 'TYPE_2'>;
+        type Value0 = Brand<number, 'TYPE_0'>;
+        type Value1 = Brand<number, 'TYPE_1'>;
+        type Value2 = Brand<number, 'TYPE_2'>;
 
-        type FlowResult0 = { returnResult0: Number0; returnResult1: Number1 };
+        type FlowResult0 = { returnResult0: Value0; returnResult1: Value1 };
         type FlowResult1 = {
-            returnResult0: Number0;
-            returnResult1: Number1;
-            returnResult2: Number2;
+            returnResult0: Value0;
+            returnResult1: Value1;
+            returnResult2: Value2;
         };
 
         const endpoint0 = `${endpoint}/0`;
         const endpoint1 = `${endpoint}/1`;
         const endpoint2 = `${endpoint}/2`;
 
-        const number0 = 7 as Number0;
-        const number1 = 9 as Number1;
+        const value0 = 7 as Value0;
+        const value1 = 9 as Value1;
 
         const flowGenerator0 = toFlowGeneratorFunction((param: string) =>
-            httpClient.request<Number0>(new Request(endpoint0, { method: 'POST', body: param }))
+            httpClient.request<Value0>(new Request(endpoint0, { method: 'POST', body: param }))
         );
         const flowGenerator1 = toFlowGeneratorFunction(() =>
-            httpClient.request<Number1>(new Request(endpoint1))
+            httpClient.request<Value1>(new Request(endpoint1))
         );
         const flowGenerator2 = toFlowGeneratorFunction((param: number) =>
-            httpClient.request<Number2>(
-                new Request(endpoint2, { method: 'POST', body: `${param}` })
-            )
+            httpClient.request<Value2>(new Request(endpoint2, { method: 'POST', body: `${param}` }))
         );
         function* flowGenerator3(param: string): FlowGenerator<FlowResult0> {
             void param;
@@ -247,10 +241,10 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         }
         const flowFunction = flow(flowGenerator4);
         const promise = flowFunction(8);
-        httpClient.expectOne<Number0>(endpoint0).resolve(number0);
+        httpClient.expectOne<Value0>(endpoint0).resolve(value0);
         httpClient.verify();
         await sleep();
-        httpClient.expectOne<Number1>(endpoint1).resolve(number1);
+        httpClient.expectOne<Value1>(endpoint1).resolve(value1);
         httpClient.verify();
         await sleep();
         promise.cancel();

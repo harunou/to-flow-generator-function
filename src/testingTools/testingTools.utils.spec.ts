@@ -13,16 +13,4 @@ describe(`${expectType.name}`, () => {
 
         expect(true).toBeTruthy();
     });
-    it('helps to assert if types are not any', () => {
-        expectType<number>().notToBeAny(true);
-
-        // @ts-expect-error -- NOTE(harunou): test that the assertion resolves to an error if the type is not any, but the expected type is any
-        expectType<number>().notToBeAny(false);
-
-        // @ts-expect-error -- NOTE(harunou): test that the assertion resolves to an error if the type is any, but the expected type is not any
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- NOTE(harunou): check if notAny works with any
-        expectType<any>().notToBeAny(true);
-
-        expect(true).toBeTruthy();
-    });
 });
