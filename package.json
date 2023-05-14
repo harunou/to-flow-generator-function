@@ -1,6 +1,6 @@
 {
   "name": "to-flow-generator-function",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "MIT",
   "description": "An utility function that makes MobX flow type-safe",
   "keywords": [
