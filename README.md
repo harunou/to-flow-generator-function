@@ -1,6 +1,7 @@
 # ToFlowGeneratorFunction
 
 [![codecov](https://codecov.io/github/harunou/to-flow-generator-function/branch/main/graph/badge.svg?token=1WTYGPJ8N5)](https://codecov.io/github/harunou/to-flow-generator-function)
+[![npm](https://img.shields.io/npm/v/to-flow-generator-function)](https://www.npmjs.com/package/to-flow-generator-function)
 
 Converts a promise-returning function to a generator-returning one. This is intended to allow for the usage of type-safe yield inside a MobX flow wrapper.
 
