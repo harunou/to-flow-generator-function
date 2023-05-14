@@ -40,6 +40,6 @@ const userData = await flow(fetchUserData)(userId);
 
 More examples in [toFlowGeneratorFunction.spec.ts](./src/toFlowGeneratorFunction.spec.ts)
 
-## Similar solutions
+## Alternative solutions
 
 <https://mobx-state-tree.js.org/API/#togeneratorfunction>
