@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "../build",
     "noEmit": false,
-    "declaration": true
+    "declaration": true,
+    "module": "CommonJS"
   },
   "include": ["./index.ts"]
 }
