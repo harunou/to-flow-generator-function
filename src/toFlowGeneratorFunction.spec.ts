@@ -1,7 +1,8 @@
 import { flow as _flow, FlowCancellationError } from 'mobx';
 import { type FlowGenerator, toFlowGeneratorFunction } from './toFlowGeneratorFunction';
-import { type Brand, expectType, sleep, TestHttpClient } from './testingTools';
+import { type Brand, expectType, sleep } from './testingTools';
 import type { Annotation, CancellablePromise } from 'mobx/dist/internal';
+import { TestHttpClient } from 'test-http-client';
 
 // NOTE(harunou): flow type without any
 interface Flow extends Annotation, PropertyDecorator {
