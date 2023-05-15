@@ -1,8 +1,9 @@
 import { flow as _flow, FlowCancellationError } from 'mobx';
 import { type FlowGenerator, toFlowGeneratorFunction } from './toFlowGeneratorFunction';
-import { type Brand, expectType, sleep } from './testingTools';
+import { type Brand, sleep } from './testingTools';
 import type { Annotation, CancellablePromise } from 'mobx/dist/internal';
 import { TestHttpClient } from 'test-http-client';
+import { expectType } from 'tsd';
 
 // NOTE(harunou): flow type without any
 interface Flow extends Annotation, PropertyDecorator {
@@ -48,7 +49,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         const flowFunction = flow(flowGenerator);
         const promise = flowFunction();
 
-        expectType<Awaited<typeof promise>>().toEqual<number>(true);
+        expectType<Promise<number>>(promise);
         await expect(promise).resolves.toEqual(expected);
     });
 
@@ -58,7 +59,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         const promise = flowFunction();
         httpClient.expectOne<typeof expected>(endpoint).resolve(expected);
 
-        expectType<Awaited<typeof promise>>().toEqual<number>(true);
+        expectType<Promise<number>>(promise);
         await expect(promise).resolves.toEqual(expected);
     });
 
@@ -73,7 +74,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         const promise = flowFunction(paramValue);
         httpClient.expectOne<typeof expected>(endpoint).resolve(expected);
 
-        expectType<Awaited<typeof promise>>().toEqual<string>(true);
+        expectType<Promise<string>>(promise);
         await expect(promise).resolves.toEqual(expected);
     });
 
@@ -84,7 +85,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         await sleep();
         await sleep();
 
-        expectType<Awaited<typeof promise>>().toEqual<number>(true);
+        expectType<Promise<number>>(promise);
         httpClient.expectOne<typeof expected>(endpoint).resolve(expected);
         await expect(promise).resolves.toEqual(expected);
     });
@@ -96,7 +97,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         const promise = flowFunction();
         httpClient.expectOne(endpoint).reject(error);
 
-        expectType<Awaited<typeof promise>>().toEqual<never>(true);
+        expectType<Promise<never>>(promise);
         await expect(promise).rejects.toEqual(error);
     });
 
@@ -107,7 +108,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         });
         const flowFunction = flow(flowGenerator);
 
-        expectType<Awaited<ReturnType<typeof flowFunction>>>().toEqual<never>(true);
+        expectType<() => Promise<never>>(flowFunction);
         await expect(() => flowFunction()).rejects.toEqual(error);
     });
 
@@ -120,7 +121,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         );
         const flowFunction = flow(flowGenerator);
 
-        expectType<Awaited<ReturnType<typeof flowFunction>>>().toEqual<never>(true);
+        expectType<() => Promise<never>>(flowFunction);
         await expect(() => flowFunction()).rejects.toEqual(error);
     });
 
@@ -189,7 +190,7 @@ describe(`${toFlowGeneratorFunction.name}`, () => {
         httpClient.expectOne<Value2>(endpoint2).resolve(value2);
         httpClient.verify();
 
-        expectType<Awaited<ReturnType<typeof flowFunction>>>().toEqual<FlowResult1>(true);
+        expectType<Promise<FlowResult1>>(promise);
         await expect(promise).resolves.toEqual(expected0);
     });
 
