@@ -13,7 +13,7 @@ The `toFlowGeneratorFunction` is a utility function that converts a promise-retu
 
 ```typescript
 import { flow } from 'mobx';
-import { toFlowGeneratorFunction } from 'to-flow-generator-function';
+import { toFlowGeneratorFunction, type FlowGenerator } from './to-flow-generator-function';
 
 interface UserData {
     id: number;
