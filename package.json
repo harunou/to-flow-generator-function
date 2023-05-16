@@ -19,7 +19,7 @@
     "url": "https://github.com/harunou/to-flow-generator-function/issues"
   },
   "repository": "git@github.com:harunou/to-flow-generator-function.git",
-  "author": "Dzmitry Harunou <d.harunou@gmail.com>",
+  "author": "Dzmitry Harunou <dev.harunou@gmail.com>",
   "scripts": {
     "test": "run-s -ln lint:all jest:all",
     "build": "rm -rf ./build && tsc --build ./src ",
