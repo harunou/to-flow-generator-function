@@ -41,6 +41,36 @@ const userData = await flow(fetchUserData)(userId);
 // Here, `userData` has the type `UserData`.
 ```
 
+```typescript
+type GithubProject = number;
+declare function fetchGithubProjectsSomehow(): Promise<GithubProject[]>;
+declare function somePreprocessing(projects: GithubProject[]): GithubProject[];
+
+class Store {
+    githubProjects: GithubProject[] = [];
+    state = 'pending';
+
+    fetchProjects = flow(function* (this: Store): FlowGenerator<GithubProject[]> {
+        this.githubProjects = [];
+        this.state = 'pending';
+        try {
+            // yield instead of await.
+            const projects = yield* toFlowGeneratorFunction(fetchGithubProjectsSomehow)();
+            const filteredProjects = somePreprocessing(projects);
+            this.state = 'done';
+            this.githubProjects = filteredProjects;
+        } catch (error) {
+            this.state = 'error';
+        }
+        return this.githubProjects;
+    });
+}
+
+const store = new Store();
+const projects: GithubProject[] = await store.fetchProjects();
+
+```
+
 More examples in [toFlowGeneratorFunction.spec.ts](./src/toFlowGeneratorFunction.spec.ts)
 
 ## Alternative solutions
