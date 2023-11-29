@@ -38,7 +38,7 @@ function* fetchUserData(id: number): FlowGenerator<UserData> {
 
 const userId = 3;
 const userData = await flow(fetchUserData)(userId);
-// Here, `useData` has the type `UserData`.
+// Here, `userData` has the type `UserData`.
 ```
 
 More examples in [toFlowGeneratorFunction.spec.ts](./src/toFlowGeneratorFunction.spec.ts)
